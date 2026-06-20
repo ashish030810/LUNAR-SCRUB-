@@ -45,11 +45,3 @@ The operating system coordinates a complex hardware matrix divided into five spe
 🌟 Mission Metrics & Learning Objectives
 
 Through building this firmware, I mastered managing complex pinout registers without line collisions, interacting with multiple I2C and analog protocols simultaneously, creating custom software-driven servo PWM pulses, and writing highly structured, non-blocking finite state machines for space automation.
-
-## 🚀 How to Run & Test the Simulation
-
-To see the Lunar-Scrub firmware executing live, you can run the digital hardware simulation directly in your browser:
-
-1. **Open the Simulation:** Click here [Paste your Wokwi project URL here]
-2. **Start the Code:** Click the green **Play/Start Simulation** button at the top of the Wokwi workspace.
-3. **Monitor Telemetry:** Watch the virtual 16x2 LCD display and the bottom Serial Monitor window to view real-time radar scans and system states.
