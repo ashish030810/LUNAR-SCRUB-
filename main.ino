@@ -17,7 +17,7 @@
 // Subsystem A: Environmental Scanning Arrays
 const int PIN_MAIN_RADAR_TRIG   = 2;
 const int PIN_MAIN_RADAR_ECHO   = 3;
-const int PIN_TANK_VOLUME_IR    = A4; // (Note: Share safely or ensure standalone)
+const int PIN_TANK_VOLUME_IR    = A4; 
 
 // Astrobiology Analytics & Tight Proximity Sensors
 const int PIN_CHASSIS_IR_PROXIMITY = A6; 
@@ -38,21 +38,21 @@ const int PIN_DRIVE_WHEEL_5_SPEED = 9;  // Right Middle PWM
 const int PIN_DRIVE_WHEEL_6_DIR   = A3; // Right Rear Direction
 const int PIN_DRIVE_WHEEL_6_SPEED = 9;  // Right Rear PWM
 
-// Subsystem C: Solar Maintenance & Road Cleaning Matrix (FIXED CONFLICTS)
+// Subsystem C: Solar Maintenance & Road Cleaning Matrix
 const int PIN_SOLAR_BRUSH_GATE  = 10;
 const int PIN_SOLAR_BRUSH_PWM   = 11;
-const int PIN_LOWER_SWEEPER_A   = A1;  // CHANGED: Moved from A5 to prevent I2C Display crash
+const int PIN_LOWER_SWEEPER_A   = A1;  
 const int PIN_LOWER_SWEEPER_B   = 12;
-const int PIN_SUCTION_FAN_A     = 14;  // CHANGED: Moved from Pin 1 (Axial Analog equivalent Pin A0)
-const int PIN_SUCTION_FAN_B     = 15;  // CHANGED: Moved from Pin 0 (Axial Analog equivalent Pin A1)
+const int PIN_SUCTION_FAN_A     = 14;  
+const int PIN_SUCTION_FAN_B     = 15;  
 const int PIN_AIR_JET_BLOWER    = 13; 
 
 // Subsystem D: Actuator 13 Storage Tank Trapdoor Servo Control Pin
-const int PIN_STORAGE_SERVO_PWM = 0;   // CHANGED: Moved to Pin 0 (Safe for simple signaling if BT is RX only, or change to another digital pin)
+const int PIN_STORAGE_SERVO_PWM = 0;   
 
 // Subsystem E: High-Torque Deep Sampling Core Drill
-const int PIN_DRILL_MOTOR_GATE  = 1;   // CHANGED: Assigned safely outside critical shared PWM spaces
-const int PIN_DRILL_MOTOR_PWM   = 3;  
+const int PIN_DRILL_MOTOR_GATE  = 1;   
+const int PIN_DRILL_MOTOR_PWM   = 18;  // FIXED: Moved from 3 to 18 to avoid Radar collision
 
 // ==========================================
 // COMPONENT INSTANTIATIONS
