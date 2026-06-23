@@ -1,47 +1,46 @@
-🚀 LUNAR-SCRUB: Deep Crater Astrobiology & Automated Sampling OS
+# LUNAR-SCRUB 🌙🤖
+**An Autonomous Smart Lunar Dust Cleaner Rover**
 
-LUNAR-SCRUB is a comprehensive, multi-subsystem firmware designed for an autonomous lunar regolith-cleaning and astrobiology sampling rover. Built for the Hack Club x NASA Stardance Challenge, this custom Arduino kernel manages 16 independent hardware subsystems concurrently to navigate harsh lunar terrains, clear dust hazards, and scan for water-ice signatures.
+---
 
-🌌 Core Features & Mission Subsystems
+## 🚀 Project Overview
+Space dust on the Moon sticks to solar panels and blocks a rover's only power source. **LUNAR-SCRUB** solves this by using an automatic rotating brush system that sweeps dust off the panels to keep them clean. It features a 4WD motor setup to navigate terrain and a servo-controlled dust bin to collect and dump out the debris safely.
 
-The operating system coordinates a complex hardware matrix divided into five specialized layers:
-- **Subsystem A (Environmental Scanning):** Implements automated ultrasonic radar collision tracking and deep-terrain scouting arrays utilizing multi-point IR sensory data.
-- **Subsystem B (6WD Mobility Matrix):** Drives 6 independent, high-torque wheels with a discrete direction/speed registry for advanced hazard evasion maneuvers.
-- **Subsystem C (Surface Extraction & Maintenance):** Runs lower chassis sweeping brushes, dual high-velocity vacuum turbo fans, an air-blower jet for regolith clearing, and an automated solar panel cleaning mechanism.
-- **Subsystem D (Regolith Storage):** Coordinates an automated mechanical storage tank dump system triggered by IR level indicators or wireless commands.
-- **Subsystem E (Astrobiology Core Drill):** Evaluates real-time soil moisture and electrical conductivity to safely deploy a high-torque subsurface rock drill when water-ice boundaries are detected.
+---
 
-🛠️ Complete 16-Subsystem Hardware Register
+## 🛠️ Hardware Bill of Materials (BOM)
 
-| Motor/Device ID | Assigned Component Function |
-| :--- | :--- |
-| **Motors 1 - 3** | Left Side Drive Wheel Matrix (Front, Middle, Rear Channels) |
-| **Motors 4 - 6** | Right Side Drive Wheel Matrix (Front, Middle, Rear Channels) |
-| **Motor 7** | Solar Panel Top Cleaning Brush Actuator |
-| **Motor 8 & 9** | Lower Chassis Road Sweeping Brushes (A & B Arrays) |
-| **Motor 10 & 11** | Vacuum Suction Turbo Fan Assembly (Dual Extraction Lines) |
-| **Motor 12** | High-Velocity Dust Dispersion Air Blower Jet |
-| **Actuator 13** | Dirt Storage Tank Mechanical Trapdoor Servo |
-| **Device 14** | 16x2 I2C LCD Character Diagnostic Telemetry Screen |
-| **Device 15** | HC-05 / HC-06 High-Frequency Wireless Bluetooth Transceiver |
-| **Sensors 16 - 18** | Advanced Scanning Array (Ultrasonic Radar, Moisture Probe, IR Tank Array) |
+### 🧠 Core Electronics & Controllers
+* **1x Arduino Uno** (Handles real-time sensor processing and safety overrides)
+* **1x ESP32 Development Board** (Handles wireless communication and driving commands)
 
-💻 Tech Stack & Architecture
+### ⚙️ Actuators & Drivetrain
+* **1x 4WD Rover Chassis Kit** (Includes 4x DC motors and wheels)
+* **1x L298N Motor Driver Module** (To power and control the 4WD motor setup)
+* **1x High-Torque Servo Motor** (For controlling the dust bin collection/dumping mechanism)
+* **1x DC Motor** (To spin the automatic rotating cleaning brush)
 
-- **Language:** C++ / Arduino Framework
-- **Libraries:** Wire.h, LiquidCrystal_I2C.h
-- **Design Pattern:** Monolithic Execution Kernel with fully decoupled, zero-grouping function blocks ensuring absolute asynchronous isolation between high-power motor lines and low-voltage I2C telemetry lines.
-- **Development Tools:** Hackatime (Open-source development timer metrics), GitHub.
+### 👁️ Sensors & Safety System
+* **1x HC-SR04 Ultrasonic Distance Sensor** (For front-facing obstacle detection)
+* **1x Infrared (IR) Obstacle Avoidance Sensor** (For ledge and crater detection)
 
-⚙️ How It Works (The Core Loop)
+### 🔋 Power & Interconnects
+* **1x 7.4V / 11.1V Battery Pack** (To power the DC motors via the driver)
+* **1x 5V/9V Power Source** (For clean logic power to the microcontrollers)
+* **1x Breadboard & Premium Jumper Wires** (For circuit routing)
 
-- **Sensing Pipeline:** The loop continuously calculates terrain distance via ultrasonic echo pulses and polls analog readings for tank capacities, soil water levels, and chassis clearances.
-- **Safety Intercepts:** Immediate safety overrides trigger if the regolith tank is full or if a critical manual stop signal is beamed in through the Bluetooth terminal interface.
-- **FSM Navigation Engine:**
-  - *Distance > 50cm:* Enters Fast Cruise, activating extraction vacuums and traveling at peak power.
-  - *Distance 25cm - 50cm:* Decelerates to Slow Prep crawl mode for delicate brushing maneuvers near craters.
-  - *Distance < 25cm:* Halts all cleaning pumps, reverses, pivots right, and calculates a safe departure course.
+---
 
-🌟 Mission Metrics & Learning Objectives
+## 🧠 Software & Safety Logic
+The system uses a dual-controller setup where the Arduino Uno constantly monitors safety sensors while the ESP32 handles driving inputs. 
 
-Through building this firmware, I mastered managing complex pinout registers without line collisions, interacting with multiple I2C and analog protocols simultaneously, creating custom software-driven servo PWM pulses, and writing highly structured, non-blocking finite state machines for space automation.
+* **Automatic Braking:** If the ultrasonic or IR sensors detect a rock or crater ledge closer than **15cm**, the code instantly overrides all driving inputs and hits the brakes completely to save the rover from crashing.
+* **Easy Configuration:** Crucial settings like pin numbers, distance limits, and brush timers are declared as variables at the very top of the `main.ino` file for quick adjustments.
+
+---
+
+## 🕹️ How To Test It
+1. Open the Arduino sketch (`main.ino`) and upload it to your board.
+2. Open the **Serial Monitor**.
+3. Type commands like `'F'` to drive forward, or `'M'` to trigger the solar panel brush.
+4. Test the auto-braking system by placing an object closer than 15cm to the ultrasonic sensor—the motors will freeze instantly.
